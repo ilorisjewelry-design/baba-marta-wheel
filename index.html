@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Колело на късмета – Баба Марта</title>
+
+<style>
+body{
+  margin:0;
+  background:#de72e3;
+  font-family:Arial,sans-serif;
+}
+.wrapper{
+  max-width:520px;
+  margin:0 auto;
+  padding:30px 15px;
+  text-align:center;
+  color:#fff;
+}
+.wheel-wrap{
+  position:relative;
+  width:320px;
+  height:320px;
+  margin:20px auto;
+}
+.pointer{
+  position:absolute;
+  top:-6px;
+  left:50%;
+  transform:translateX(-50%);
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+  border-bottom:28px solid #c62828;
+}
+svg{
+  width:100%;
+  height:100%;
+  transition:transform 3s ease-out;
+}
+button{
+  background:#c62828;
+  color:#fff;
+  border:none;
+  padding:14px 30px;
+  border-radius:30px;
+  font-size:18px;
+  cursor:pointer;
+}
+button:disabled{opacity:.6;cursor:not-allowed;}
+#result{margin-top:18px;font-size:17px;}
+a{color:#fff;text-decoration:underline;}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+  <h2>🧿 Колело на късмета – Баба Марта</h2>
+  <p>Едно завъртане – един мартенски късмет</p>
+
+  <div class="wheel-wrap">
+    <div class="pointer"></div>
+    <svg id="wheel" viewBox="0 0 200 200">
+      <g>
+        <path d="M100 100 L100 0 A100 100 0 0 1 186.6 50 Z" fill="#c62828"/>
+        <path d="M100 100 L186.6 50 A100 100 0 0 1 186.6 150 Z" fill="#fff"/>
+        <path d="M100 100 L186.6 150 A100 100 0 0 1 100 200 Z" fill="#e53935"/>
+        <path d="M100 100 L100 200 A100 100 0 0 1 13.4 150 Z" fill="#fff"/>
+        <path d="M100 100 L13.4 150 A100 100 0 0 1 13.4 50 Z" fill="#b71c1c"/>
+        <path d="M100 100 L13.4 50 A100 100 0 0 1 100 0 Z" fill="#fff"/>
+      </g>
+    </svg>
+  </div>
+
+  <button id="spinBtn">Завърти</button>
+  <div id="result"></div>
+</div>
+
+<script>
+const prizes=[
+ {t:"Здраве",u:"https://iloris.net/category/"},
+ {t:"Защита",u:"https://iloris.net/category/"},
+ {t:"Любов",u:"https://iloris.net/category/"},
+ {t:"Енергия",u:"https://iloris.net/category/"},
+ {t:"Късмет",u:"https://iloris.net/category/"},
+ {t:"Творчество",u:"https://iloris.net/category/"}
+];
+
+const wheel=document.getElementById("wheel");
+const btn=document.getElementById("spinBtn");
+const result=document.getElementById("result");
+
+if(sessionStorage.getItem("bm_spun")){
+ btn.disabled=true;
+ result.innerText="🧶 Вече изтегли своя мартенски късмет";
+}
+
+btn.onclick=()=>{
+ if(sessionStorage.getItem("bm_spun")) return;
+ const i=Math.floor(Math.random()*prizes.length);
+ const deg=360*5+(360/prizes.length)*i;
+ wheel.style.transform="rotate("+deg+"deg)";
+ sessionStorage.setItem("bm_spun","1");
+ btn.disabled=true;
+ setTimeout(()=>{
+   result.innerHTML="🎁 <strong>"+prizes[i].t+
+   "</strong><br><a href='"+prizes[i].u+
+   "' target='_blank'>Виж подходящи материали</a>";
+ },3000);
+};
+</script>
+</body>
+</html>
