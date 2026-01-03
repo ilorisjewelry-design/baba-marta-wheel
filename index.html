@@ -24,6 +24,45 @@ body{
   height:320px;
   margin:20px auto;
 }
+  .spin-center{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ffffff 0%,#f44336 45%,#b71c1c 100%);
+  color:#b71c1c;
+  font-size:16px;
+  font-weight:700;
+  border:4px solid #ffffff;
+  cursor:pointer;
+  z-index:5;
+  box-shadow:
+    0 0 0 0 rgba(255,255,255,0.7),
+    0 6px 18px rgba(0,0,0,0.35);
+  animation:pulseSpin 2s infinite;
+}
+.spin-center span{
+  display:block;
+  line-height:1.1;
+  text-align:center;
+}
+.spin-center:hover{
+  transform:translate(-50%,-50%) scale(1.05);
+} 
+.spin-center:active{
+  transform:translate(-50%,-50%) scale(0.97);
+}  
+.spin-center:disabled{
+  animation:none;
+  opacity:.7;
+  cursor:not-allowed;
+}
+#result{margin-top:18px;font-size:17px;}
+a{color:#fff;text-decoration:underline;} 
+  
 .pointer{
   position:absolute;
   top:-6px;
@@ -37,21 +76,28 @@ svg{
   width:100%;
   height:100%;
   transition:transform 3s ease-out;
+  will-change: transform;
+}  
+
+@keyframes pulseSpin{
+  0%{
+    box-shadow:
+      0 0 0 0 rgba(255,255,255,0.7),
+      0 6px 18px rgba(0,0,0,0.35);
+  }
+  70%{
+    box-shadow:
+      0 0 0 16px rgba(255,255,255,0),
+      0 6px 18px rgba(0,0,0,0.35);
+  }
+  100%{
+    box-shadow:
+      0 0 0 0 rgba(255,255,255,0),
+      0 6px 18px rgba(0,0,0,0.35);
+  }
 }
-button{
-  background:#c62828;
-  color:#fff;
-  border:none;
-  padding:14px 30px;
-  border-radius:30px;
-  font-size:18px;
-  cursor:pointer;
-}
-button:disabled{opacity:.6;cursor:not-allowed;}
-#result{margin-top:18px;font-size:17px;}
-a{color:#fff;text-decoration:underline;}
 </style>
-</head>
+  </head>
 
 <body>
 <div class="wrapper">
@@ -59,31 +105,34 @@ a{color:#fff;text-decoration:underline;}
   <p>Едно завъртане – един мартенски късмет</p>
 
   <div class="wheel-wrap">
-    <div class="pointer"></div>
-    <svg id="wheel" viewBox="0 0 200 200">
-      <g>
-        <path d="M100 100 L100 0 A100 100 0 0 1 186.6 50 Z" fill="#c62828"/>
-        <path d="M100 100 L186.6 50 A100 100 0 0 1 186.6 150 Z" fill="#fff"/>
-        <path d="M100 100 L186.6 150 A100 100 0 0 1 100 200 Z" fill="#e53935"/>
-        <path d="M100 100 L100 200 A100 100 0 0 1 13.4 150 Z" fill="#fff"/>
-        <path d="M100 100 L13.4 150 A100 100 0 0 1 13.4 50 Z" fill="#b71c1c"/>
-        <path d="M100 100 L13.4 50 A100 100 0 0 1 100 0 Z" fill="#fff"/>
-      </g>
-    </svg>
-  </div>
+  <div class="pointer"></div>
 
-  <button id="spinBtn">Завърти</button>
-  <div id="result"></div>
+  <svg id="wheel" viewBox="0 0 200 200">
+    <g>
+      <path d="M100 100 L100 0 A100 100 0 0 1 186.6 50 Z" fill="#c62828"/>
+      <path d="M100 100 L186.6 50 A100 100 0 0 1 186.6 150 Z" fill="#fff"/>
+      <path d="M100 100 L186.6 150 A100 100 0 0 1 100 200 Z" fill="#e53935"/>
+      <path d="M100 100 L100 200 A100 100 0 0 1 13.4 150 Z" fill="#fff"/>
+      <path d="M100 100 L13.4 150 A100 100 0 0 1 13.4 50 Z" fill="#b71c1c"/>
+      <path d="M100 100 L13.4 50 A100 100 0 0 1 100 0 Z" fill="#fff"/>
+    </g>
+  </svg>
+
+  <button id="spinBtn" class="spin-center">
+  <span>Завърти<br>ме</span>
+</button>
+</div>
+    <div id="result"></div>
 </div>
 
 <script>
 const prizes=[
- {t:"Здраве",u:"https://iloris.net/category/"},
- {t:"Защита",u:"https://iloris.net/category/"},
- {t:"Любов",u:"https://iloris.net/category/"},
- {t:"Енергия",u:"https://iloris.net/category/"},
- {t:"Късмет",u:"https://iloris.net/category/"},
- {t:"Творчество",u:"https://iloris.net/category/"}
+ {t:"Здраве",u:"https://iloris.net/category/115/pizho-i-penda.html"},
+ {t:"Защита",u:"https://iloris.net/category/158/estestveni-kamani.html"},
+ {t:"Любов",u:"https://iloris.net/category/56/rozov-kvarts.html"},
+ {t:"Енергия",u:"https://iloris.net/category/115/pizho-i-penda.html?acolor%5B0%5D=84"},
+ {t:"Късмет",u:"https://iloris.net/search.html?phrase=%D0%B4%D0%B5%D1%82%D0%B5%D0%BB%D0%B8%D0%BD%D0%B0"},
+ {t:"Творчество",u:"https://iloris.net/category/221/gobleni-ot-manista.html"}
 ];
 
 const wheel=document.getElementById("wheel");
@@ -92,6 +141,7 @@ const result=document.getElementById("result");
 
 if(sessionStorage.getItem("bm_spun")){
  btn.disabled=true;
+ btn.style.animation = "none";
  result.innerText="🧶 Вече изтегли своя мартенски късмет";
 }
 
@@ -102,6 +152,7 @@ btn.onclick=()=>{
  wheel.style.transform="rotate("+deg+"deg)";
  sessionStorage.setItem("bm_spun","1");
  btn.disabled=true;
+ btn.style.animation = "none";
  setTimeout(()=>{
    result.innerHTML="🎁 <strong>"+prizes[i].t+
    "</strong><br><a href='"+prizes[i].u+
