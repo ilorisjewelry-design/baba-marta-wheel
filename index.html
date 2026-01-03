@@ -95,6 +95,21 @@ svg{
       0 0 0 0 rgba(255,255,255,0),
       0 6px 18px rgba(0,0,0,0.35);
   }
+  }
+.wheel-area{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.martenitsa-deco{
+  width:90px;
+  max-width:25vw;
+  height:auto;
+  opacity:0.95;
+  pointer-events:none;
 }
 </style>
   </head>
@@ -104,24 +119,32 @@ svg{
   <h2>🧿 Колело на късмета – Баба Марта</h2>
   <p>Едно завъртане – един мартенски късмет</p>
 
+  <div class="wheel-area">
+
+  <img
+    src="pizho-penda.jpeg"
+    alt="Пижо и Пенда – символ на здраве и Баба Марта"
+    class="martenitsa-deco">
+
   <div class="wheel-wrap">
-  <div class="pointer"></div>
+    <div class="pointer"></div>
 
-  <svg id="wheel" viewBox="0 0 200 200">
-    <g>
-      <path d="M100 100 L100 0 A100 100 0 0 1 186.6 50 Z" fill="#c62828"/>
-      <path d="M100 100 L186.6 50 A100 100 0 0 1 186.6 150 Z" fill="#fff"/>
-      <path d="M100 100 L186.6 150 A100 100 0 0 1 100 200 Z" fill="#e53935"/>
-      <path d="M100 100 L100 200 A100 100 0 0 1 13.4 150 Z" fill="#fff"/>
-      <path d="M100 100 L13.4 150 A100 100 0 0 1 13.4 50 Z" fill="#b71c1c"/>
-      <path d="M100 100 L13.4 50 A100 100 0 0 1 100 0 Z" fill="#fff"/>
-    </g>
-  </svg>
+    <svg id="wheel" viewBox="0 0 200 200">
+      <g>
+        <path d="M100 100 L100 0 A100 100 0 0 1 186.6 50 Z" fill="#c62828"/>
+        <path d="M100 100 L186.6 50 A100 100 0 0 1 186.6 150 Z" fill="#fff"/>
+        <path d="M100 100 L186.6 150 A100 100 0 0 1 100 200 Z" fill="#e53935"/>
+        <path d="M100 100 L100 200 A100 100 0 0 1 13.4 150 Z" fill="#fff"/>
+        <path d="M100 100 L13.4 150 A100 100 0 0 1 13.4 50 Z" fill="#b71c1c"/>
+        <path d="M100 100 L13.4 50 A100 100 0 0 1 100 0 Z" fill="#fff"/>
+      </g>
+    </svg>
 
-  <button id="spinBtn" class="spin-center">
-  <span>Завърти<br>ме</span>
-</button>
-</div>
+    <button id="spinBtn" class="spin-center">
+      <span>Завърти<br>ме</span>
+     </button>
+   </div>
+ </div>
     <div id="result"></div>
 </div>
 
